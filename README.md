@@ -348,25 +348,11 @@ Portal.
 
   Activity|Configuration|
   ---|---
-  Create Management VNet Resource Groups|Enter resource group name during deployment
-  Create Operational VNet Resource Groups|Enter resource group name during deployment
-  Deploy  VNet network infrastructure|Enter resource group name during deployment
-  Create VNet Peerings|None required|
-  Deploy VPN Gateway|The template deploys an Azure environment with a public facing endpoint and an Azure Gateway to allow VPN setup between the Azure environment and your on-premises environment. To complete this VPN connection, you will need to provide the Local Gateway (your on-premises VPN public IP address) and complete the VPN connection set up locally. VPN Gateway requires local gateway configuration in the [/parameters/azure/ops-network.parameters.json](/parameters/azure/ops-network.parameters.json) template parameters file  or through the Azure portal.                                    
-  Deploying internet facing Application Gateway|For SSL termination, Application Gateway requires you SSL certificates to be uploaded. When provisioned the Application Gateway will instantiate a public IP address and domain name to allow access to the web application
-  Create Network Security Groups for VNETs|RDP access to the Management VNet Jumpbox must be secured to a trusted IP address range. It is important to amend the "sourceAddressPrefix" parameter with your own trusted source IP address range in the [/parameters/azure/nsg-rules.parameters.json](/parameters/azure/nsg-rules.parameters.json) template parameters file. NSG configuration for the operational VNet can be found at [/parameters/azure/ops-vent-nsgs.json](/parameters/azure/ops-vent-nsgs.json)
-  Create ADDS resource group|Enter resource group name during deployment and edit the configuration fields if required
-  Deploying ADDS servers|None required
-  Updating DNS servers|None required
-  Create ADDS domain|The provided templates create a demo 'treyresearch' domain. To ensure that the required Active Directory Domain is created with the desired domain name and administrative user the fields can be configured in the deployment screen or in the [/parameters/azure/add-adds-domain-controller.parameters.json](/parameters/azure/add-adds-domain-controller.parameters.json) template parameters file must be edited with the required values
-  Create ADDS domain controller|None required
-  Create operational workload Resource Group|Enter resource group name during deployment
-  Deploy operational VM tiers and load balancers   |None required
-  Set up IIS web server role for web tier|None required
-  Enable Windows Auth for VMs|None required
-  Deploy Microsoft Anti-malware to VMs|None required
-  Domain Join VMs|Domain joining the Virtual Machines is a post deployment step and must be **manually** completed
-                                                  
+  Create Azure SQL DB|TBC - Single ARM template for SQL and App Server?
+  Create Azure App Server|TBC
+  Deploy Application|TBC - should add something about SSL certificates and KeyVault. There are lots of [deployment options](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-deploy), do we need to choose one? If it's going to be considered secure, we need to say something about source control and build/deploy processes - do we included VSTS?
+  *Do we keep App Gateway? Probably not, since it doesn't work with App Service currently* Deploying internet facing Application Gateway|For SSL termination, Application Gateway requires you SSL certificates to be uploaded. When provisioned the Application Gateway will instantiate a public IP address and domain name to allow access to the web application
+                                                 
 
 ## Deployment Process
 
