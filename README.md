@@ -15,10 +15,7 @@ Contents
 - [Deployment Guide](#deployment-guide)
 - [Deployment and Configuration Activities](#deployment-and-configuration-activities) 
 	- [Deployment Process](#deployment-process)
-	- [Deploy Networking Infrastructure](#deploy-networking-infrastructure)
-	- [Deploy Active Directory Domain](#deploy-active-directory-domain)
-	- [Deploy operational workload infrastructure](#deploy-operational-workload-infrastructure)
-	- [(Optional) PowerShell Deployment](#optional-powershell-deployment)
+	- [Deploy Templates](#deploy-networking-infrastructure)
 - [UK Governments Private Network Connectivity](#uk-governments-private-network-connectivity)
 - [Cost](#cost)
 - [Further reading](#further-reading)
@@ -52,41 +49,14 @@ These templates deliver a Microsoft Azure Platform as a Service web based archit
 
  The components of this architecture include -
 
-1.  **On-premises network**. A private local-area network implemented in an organization.
-
-2.  **Production VNet**. The Production [VNet](https://docs.microsoft.com/en-us/azure/Virtual-Network/virtual-networks-overview) (Virtual Network) hosts the application and other operational resources running in Azure. Each VNet may contain several subnets which are used for isolating and managing network traffic.
-
-3.  **Web tier.** Handles incoming HTTP requests. Responses are returned through this tier.
-
-4.  **Business tier:** Implements business processes and other functional logic for the system.
-
-5.  **Database tier:** Provides persistent data storage, using [SQL Server Always On Availability Groups](https://msdn.microsoft.com/en-us/library/hh510230.aspx) for high availability. Customers may wish to consider using [Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-technical-overview) as a PaaS alternative
-
-6.  **Gateway**: The [VPN Gateway](https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways) provides connectivity between the routers in the on-premises network and the Production VNet.
-
-7.  **Internet Gateway and Public IP Address**: The internet gateway exposes application services to users through the internet. Traffic accessing these services is secured using an [Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-introduction) offering Layer 7 routing and load balancing capabilities with web application firewall (WAF) protection.
-
-8.  **Management VNet:** This [VNet](https://docs.microsoft.com/en-us/azure/Virtual-Network/virtual-networks-overviewcontains) contains resources that implement management and monitoring capabilities for the workloads running in the Production VNet.
-
-9.  **Jumpbox.** Also, called a [bastion host](https://en.wikipedia.org/wiki/Bastion_host). A secure VM on the network that administrators use to connect to VMs in the Production VNet. The jumpbox has an NSG that allows remote traffic only from public IP addresses on a safe list. The NSG should permit remote desktop (RDP) traffic. Management of production resources is via RDP using a secured Jumpbox VM.
-
-10. **User defined routes (UDR)**. [User defined routes](https://docs.microsoft.com/en-gb/azure/virtual-network/virtual-networks-udr-overview) are used to define the flow of IP traffic within Azure VNets.
-
-11. **Network Peered VNETs:** The Production and Management VNets are connected using [VNet Peering](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview)**.**
-     They are still managed as separate resources, but appear as one for all connectivity purposes with virtual machines in these networks able to communicate with each other directly by using private IP addresses. VNet peering is subject to the VNets being in the same Azure Region
-
-12. **Network Security Groups:** [NSGs](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-nsg) contain Access Control Lists that allow or Deny traffic within a VNet. NSGs can be used to secure traffic at a subnet or individual VM level.
-
-13. **Active Directory Domain Services (AD DS):** This architecture provides a dedicated [Active Directory](https://msdn.microsoft.com/library/azure/jj156090.aspx) [Active Directory Domain Services](https://technet.microsoft.com/library/dd448614.aspx) deployment.
 
 14. **Logging and Audit:** [Azure Activity Log](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-activity-logs) captures operations 
 taken on the resources in your subscription such as who initiated the operation, when the operation occurred, the status of the operation and the values of other properties that might help you research the operation. 
 Azure Activity Log is an Azure platform service that captures all actions on a subscription. Logs can be archived or exported if requried.
 
-15. **Network Monitoring and Alerting** [Azure Network Watcher](https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview) is a platform service provides network packet capture, flow logging, topology tools and diagnostics  for network traffics within your VNets. 
 
 
-Guidance and Recommendations 
+Best Practice and Recommendations 
 =============================
 
 
